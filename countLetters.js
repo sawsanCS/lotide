@@ -17,3 +17,16 @@ const countLetters = function(ch) {
   return objOfChars;
 }
  console.log(countLetters("this is my opportunity"));
+assertEqual(countLetters("this is my opportunity"), { t: 3,
+  h: 1,
+  i: 3,
+  s: 2,
+  ' ': 3,
+  m: 1,
+  y: 2,
+  o: 2,
+  p: 2,
+  r: 1,
+  u: 1,
+  n: 1 }
+)
