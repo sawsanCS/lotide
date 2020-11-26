@@ -3,7 +3,6 @@ const takeUntil = function(array, callback) {
   let returnArr = [];
   for (const a of array) {
     if (callback(a)) {
-      returnArr.push(a);
       return returnArr;
     }
     returnArr.push(a);
