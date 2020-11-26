@@ -20,19 +20,38 @@
  * findKey(users, ({ age }) => age < 40)
  * // => 'barney' (iteration order is not guaranteed)
  */
-function findKey(object, predicate) {
-  let result
-  if (object == null) {
-    return result
+const assertEqual = function(actual, expected) {
+  if (actual !== expected) {
+    console.log(`🛑🛑🛑 Assertion Failed ${actual} !== ${expected}`);
+  } else {
+    console.log(`✅✅✅ Assertion Passed ${actual} === ${expected}`)
   }
-  Object.keys(object).some((key) => {
-    const value = object[key]
-    if (predicate(value, key, object)) {
-      result = key
-      return true
+}
+function findKey(object, callback) {
+  for (const v in object) {
+    if (callback(object[v])) {
+      return v
     }
-  })
-  return result
+  }
+ return undefined;
 }
 
-export default findKey
+const result = findKey({
+  "Blue Hill": { stars: 1 },
+  "Akaleri":   { stars: 3 },
+  "noma":      { stars: 2 },
+  "elBulli":   { stars: 3 },
+  "Ora":       { stars: 2 },
+  "Akelarre":  { stars: 3 }
+}, x => x.stars === 2);
+const otherResult = findKey({
+  "Blue Hill": { stars: 1 },
+  "Akaleri":   { stars: 3 },
+  "noma":      { stars: 2 },
+  "elBulli":   { stars: 3 },
+  "Ora":       { stars: 2 },
+  "Akelarre":  { stars: 3 }
+}, x => x.stars === 4);
+console.log(result);
+assertEqual (result, 'noma');
+assertEqual (otherResult, undefined);
